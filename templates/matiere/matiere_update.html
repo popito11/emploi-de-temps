@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="text-center">Enregistrer une matiere</h1>
+        <br>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <form action="{% url 'update_matiere' matiere.id  %}" method="POST">
+                    {% csrf_token %}
+                     
+                    <div class="form-group">
+                      <label for="nom">Nom</label>
+                      <input type="text" class="form-control" id="nom" name="nom" value="{{matiere.nom_matiere}}" placeholder="Entrez votre nom">
+                    </div>
+                    <div class="form-group">
+                      <label for="Code">Code</label>
+                      <input type="text" class="form-control" id="niveau" name="code" value="{{matiere.code}}" placeholder="Entrez votre niveau">
+                    </div>
+                    <div class="form-group">
+                      <label for="niveau">Niveau</label>
+                      <input type="number" class="form-control" id="niveau" name="niveau" value="{{matiere.niveau}}" placeholder="Entrez le niveau de la matiere">
+                    </div>
+                    <div class="form-group">
+                      <label for="nombreSeance">Nombre de séances</label>
+                      <input type="number" class="form-control" id="nombreSeance" name="nb_seance" value="{{matiere.nb_seance}}" placeholder="Entrez le nombre de séances">
+                    </div>
+                    <div class="form-group">
+                      <label for="nombreEleve">Nombre d'élèves</label>
+                      <input type="number" class="form-control" id="nombreEleve" name="nb_eleve" value="{{matiere.nb_eleve}}" placeholder="Entrez le nombre d'élèves">
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-warning">Sauvegarder</button>
+                </form>
+            </div>
+            
+        </div>                        
+    </div>
+</main>
+
+{% endblock %}

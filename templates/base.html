@@ -1,0 +1,245 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4 text-center "> Generation d'emploi de temps </h1>
+        
+        <div class="card mb-4 border-warning">
+            <div class="card-body">
+                avec Uniprog School  , gerer votre etablissement de maniere simple et professionnelle ,
+                grace a notre  module de generation d'emploi de temps. Il vous suffit de remplir les different tableau ci-dessous puis de cliquer sur generer !!!
+
+            </div>
+        </div>
+
+
+        <div>
+            <button class="btn btn-primary" style="background-color: #FFC107; border-color: #FFC107;">
+                Générer
+              
+            </button>
+        </div>
+
+
+        <div class="card mb-4 my-2">
+            <div class="card-header d-flex justify-content-between">
+                <div >
+                    <i class="fas fa-table me-1"></i>
+                    Matieres
+                </div>
+                <div class="ms-auto">
+                    <a href="{% url 'ajouter_matiere' %}" class="btn-lg  rounded-pill text-decoration-none" style="background-color: #FFC107;border-color: #FFC107;">
+                        <i class="bi bi-plus text-primary " style="margin: 15px;"> <span class="text-white">Add</span></i>
+                    </a>
+                </div>
+                
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Code</th>
+                            <th>Niveau</th>
+                            <th>Nb seance par semaine</th>
+                            <th>Nb etudiant</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                {% for mat in matieres %}
+                        
+                        <tr>
+                            <td>{{mat.id}}</td>
+                            <td>{{mat.nom_matiere}}</td>
+                            <td>{{mat.niveau}}</td>
+                            <td>{{mat.code}}</td>
+                            <td>{{mat.nb_seance}}</td>
+                            <td>{{mat.nb_eleve}}</td>
+                            
+                            <td>
+                              <div class="d-inline-block">
+                                <a type="submit" href="{% url 'update_matiere' mat.id %}" class="btn btn-outline-primary btn-sm">
+                                  <i class="bi bi-pencil-square fw-bold"></i>
+                                </a>
+                              </div>
+                              <div class="d-inline-block">
+                                <form action="{% url 'supprimer_matiere' mat.id %}" method="POST">
+                                  {% csrf_token %}
+                                  <button type="submit" class="btn btn-outline-danger btn-sm">
+                                    <i class="bi bi-trash fw-bold"></i>
+                                  </button>
+                                </form>
+                              </div>
+                              <div class="d-inline-block">
+                                <button class="btn btn-outline-info btn-sm">
+                                  <i class="bi bi-eye fw-bold"></i>
+                                </button>
+                              </div>
+                            </td>
+                        </tr>
+                       
+            
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="card mb-4 my-2">
+            <div class="card-header d-flex justify-content-between">
+              <div>
+                <i class="fas fa-table me-1"></i>
+                professeurs
+              </div>
+              <div class="ms-auto">
+                <a href="{% url 'ajouter_professeur' %}" class="btn-lg rounded-pill text-decoration-none" style="background-color: #FFC107;border-color: #FFC107;">
+                  <i class="bi bi-plus text-primary" style="margin: 15px;">
+                    <span class="text-white">Add</span>
+                  </i>
+                </a>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="input-group mb-3 ">
+                <input type="text" class="form-control" placeholder="Rechercher..." id="search-input" aria-label="Rechercher" aria-describedby="search-button">
+                
+              </div>
+              <table id="datatablesSimple" class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>telephone</th>
+                    <th>email</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for prof in Enseignants %}
+                  <tr>
+                    <td>{{prof.id}}</td>
+                    <td>{{prof.nom_prof}}</td>
+                    <td>{{prof.telephone}}</td>
+                    <td>{{prof.email}}</td>
+                    <td>
+                      <div class="d-inline-block">
+                        <a type="submit" href="{% url 'update_professeur' prof.id %}" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-pencil-square fw-bold"></i>
+                        </a>
+                      </div>
+                      <div class="d-inline-block">
+                        <form action="{% url 'supprimer_professeur' prof.id %}" method="POST">
+                          {% csrf_token %}
+                          <button type="submit" class="btn btn-outline-danger btn-sm">
+                            <i class="bi bi-trash fw-bold"></i>
+                          </button>
+                        </form>
+                      </div>
+                      <div class="d-inline-block">
+                        <a href="{% url 'read_professeur' prof.id %}" class="btn btn-outline-info btn-sm">
+                          <i class="bi bi-eye fw-bold"></i>
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+            </div>
+        </div>
+        
+        
+        <div class="card mb-4 my-2">
+            <div class="card-header d-flex justify-content-between">
+              <div>
+                <i class="fas fa-table me-1"></i>
+                salle
+              </div>
+              <div class="ms-auto">
+                <a href="{% url 'ajouter_salle' %}" class="btn-lg rounded-pill" style="background-color: #FFC107;border-color: #FFC107;">
+                  <i class="bi bi-plus text-primary" style="margin: 15px;">
+                    <span class="text-white">Add</span>
+                  </i>
+                </a>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="input-group mb-3 ">
+                <input type="text" class="form-control" placeholder="Rechercher..." id="search-input" aria-label="Rechercher" aria-describedby="search-button">
+                
+              </div>
+              <table id="datatablesSimple" class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>nombre de places</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for sal in salles %}
+                  <tr>
+                    <td>{{sal.id}}</td>
+                    <td>{{sal.name}}</td>
+                    <td>{{sal.nombre_place}}</td>
+                    <td>
+                      <div class="d-inline-block">
+                        
+                          <a type="submit" href="{% url 'update_salle' sal.id %}" class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-pencil-square fw-bold"></i>
+                          </a>
+                       
+                      </div>
+                      <div class="d-inline-block">
+                        <form action="{% url 'supprimer_salle' sal.id %}" method="POST">
+                          {% csrf_token %}
+                          <button type="submit" class="btn btn-outline-danger btn-sm">
+                            <i class="bi bi-trash fw-bold"></i>
+                          </button>
+                        </form>
+                      </div>
+                      <div class="d-inline-block">
+                        <button class="btn btn-outline-info btn-sm">
+                          <i class="bi bi-eye fw-bold"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+              <nav aria-label="Pagination">
+                <ul class="pagination justify-content-end">
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="bi bi-chevron-left"></i></a>
+                  </li>
+                  <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">1</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">3</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+        </div>
+
+
+    </div>
+</main>
+
+{% endblock %}

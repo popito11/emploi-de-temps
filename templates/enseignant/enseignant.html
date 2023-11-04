@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<input>
+    <h1>HELLO WORDL !!</h1>
+    <a href="{% url 'ajout_enseignant' %}"> <input type="button" value="Ajouter"> </input></a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>nom prof</th>
+            <th>telephone</th>
+            
+        </tr>
+        {% for prof in Enseignants %}
+            <tr>
+                <th>{{prof.id}}</th>
+                <th>{{prof.nom_prof}}</th>
+                <th>{{prof.telephone}}</th>
+                <th> <a href="{% url 'modifier_enseignant' prof.id %}"><input type="button" value="Modifier"></a> </th>
+                <th> <a href="{% url 'supprimer_enseignant' prof.id %}"><input type="button" value="Supprimer"> </a></th>
+            </tr>
+            
+        {% endfor %}
+        
+    </table>
+</body>
+</html>

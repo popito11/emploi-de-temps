@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>nom_salle</th>
+            <th>nombre_place</th>
+            
+        </tr>
+        {% for sal in salles %}
+            <tr>
+                <th>{{sal.id}}</th>
+                <th>{{sal.name}}</th>
+                <th>{{sal.nombre_place}}</th>
+
+            </tr>
+            
+        {% endfor %}
+        
+    </table>
+</body>
+</html>

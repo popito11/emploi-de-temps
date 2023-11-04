@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<p>Voulez-vous supprimer cet enseignant ??</p>
+
+<form action="{% url 'supprimer_enseignant' enseignant_sup.id %}" method="POST">
+    {% csrf_token %}
+    <a href="{% url 'accueil' %}"><input type="button" value="annuler"></a>
+    <input type="submit" name="Confirmer">
+
+</form>
+
+{% endblock %}

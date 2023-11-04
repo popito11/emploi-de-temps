@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="text-center">Enregistrer un professeur</h1>
+        <form action="{% url 'update_professeur' professeur.id %}" method="POST">
+            {% csrf_token %}
+        <div class="mb-3">
+            <label for="nom" class="form-label">Nom :</label>
+            <input type="text" class="form-control" placeholder="enter name" id="nom" name="nom" value="{{professeur.nom_prof}}" required>
+        </div>
+        <div class="mb-3">
+            <label for="telephone" class="form-label">Téléphone :</label>
+            <input type="tel" class="form-control" id="telephone" placeholder="enter telephone" name="telephone" value="{{professeur.telephone}}" required>
+        </div>
+        <div class="mb-3">
+            <label for="adresse" class="form-label">Adresse :</label>
+            <input type="text" class="form-control" id="adresse" placeholder="enter email" name="email" value="{{professeur.email}}" required>
+        </div>
+        <br>
+        <h3>cocher les cases</h3>
+        <div class="row">
+            {% for mat in matieres %}
+            <div class="col-2">
+                <label for="{{mat.nom_matiere}}">{{mat.nom_matiere}}:</label>
+                <input type="checkbox" id="m1" name="nomf" value="{{mat.id}}">
+            </div>
+            
+            {% endfor %}
+        </div>
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Lundi</th>
+                <th scope="col">Mardi</th>
+                <th scope="col">Mercredi</th>
+                <th scope="col">Jeudi</th>
+                <th scope="col">Vendredi</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">Plage horaire 1</th>
+                <td><input type="checkbox" class="form-check-input" name="case-1-1" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-1-2" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-1-3" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-1-4" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-1-5" value="true"></td>
+            </tr>
+            <tr>
+                <th scope="row">Plage horaire 2</th>
+                <td><input type="checkbox" class="form-check-input" name="case-2-1" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-2-2" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-2-3" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-2-4" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-2-5" value="true"></td>
+            </tr>
+            <tr>
+                <th scope="row">Plage horaire 3</th>
+                <td><input type="checkbox" class="form-check-input" name="case-3-1" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-3-2" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-3-3" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-3-4" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-3-5" value="true"></td>
+            </tr>
+            <tr>
+                <th scope="row">Plage horaire 4</th>
+                <td><input type="checkbox" class="form-check-input" name="case-4-1" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-4-2" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-4-3" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-4-4" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-4-5" value="true"></td>
+            </tr>
+            <tr>
+                <th scope="row">Plage horaire 5</th>
+                <td><input type="checkbox" class="form-check-input" name="case-5-1" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-5-2" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-5-3" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-5-4" value="true"></td>
+                <td><input type="checkbox" class="form-check-input" name="case-5-5" value="true"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <button type="submit" class="btn btn-warning ">save</button>
+        </form>
+    </div>
+</main>
+{% endblock %}

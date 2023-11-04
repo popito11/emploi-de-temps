@@ -1,0 +1,35 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="text-center">Enregistrer une salle</h1>
+        <br>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <form action="{% url 'update_salle' salle.id %}" method="POST">
+                    {% csrf_token %}
+                     
+                    <div class="form-group">
+                      <label for="nom">Nom de la salle </label>
+                      <input type="text" class="form-control" value="{{salle.name}}" id="nom" name="nom" placeholder="Entrez votre nom">
+                    </div>
+                    
+                    <div class="form-group">
+                      <label for="nombreSeance">Nombre de place</label>
+                      <input type="number" class="form-control" value="{{salle.nombre_place}}" id="nombrePlace" name="nb_place" placeholder="Entrez le nombre de séances">
+                    </div>
+                    
+                    <br>
+                    <button type="submit" class="btn btn-warning">Sauvegarder</button>
+                </form>
+            </div>
+            
+        </div>                        
+    </div>
+</main>
+
+{% endblock %}

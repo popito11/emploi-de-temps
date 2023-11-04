@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="text-center">Enregistrer un professeur</h1>
+        
+        <div class="mb-3">
+            <h5 for="nom" >Nom  :   <i> {{ professeur.nom_prof }} </i></h5>            
+        </div>
+
+        <div class="mb-3">
+            <h5 for="nom" >Telephone  :   <i> {{ professeur.telephone }} </i></h5>            
+        </div>
+
+        <div class="mb-3">
+            <h5 for="nom" >email :   <i> {{ professeur.email }} </i></h5>            
+        </div>
+
+        <br>
+        <h4>liste des matieres de <span class="text-primary">{{ professeur.nom_prof }}</span> : </h4>
+        <div class="row">
+            {% for mat in matieres %}
+            <ul class="col-2">
+                <li><h6><i>{{mat.nom_matiere}}</i></h6></li>
+            </ul>            
+            {% endfor %}
+        </div>
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Lundi</th>
+                <th scope="col">Mardi</th>
+                <th scope="col">Mercredi</th>
+                <th scope="col">Jeudi</th>
+                <th scope="col">Vendredi</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">7h-10h</th>
+                <td>{% if matrice.0.0 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.0.1 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.0.2 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.0.3 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.0.4 == 1 %} oui {% endif %}</td>
+            </tr>
+            <tr>
+                <th scope="row">10h-13h</th>
+                <td>{% if matrice.1.0 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.1.1 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.1.2 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.1.3 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.1.4 == 1 %} oui {% endif %}</td>
+            </tr>
+            <tr>
+                <th scope="row">13h-16h</th>
+                <td>{% if matrice.2.0 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.2.1 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.2.2 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.2.3 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.2.4 == 1 %} oui {% endif %}</td>
+            </tr>
+            <tr>
+                <th scope="row">16h-19h</th>
+                <td>{% if matrice.3.0 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.3.1 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.3.2 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.3.3 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.3.4 == 1 %} oui {% endif %}</td>
+            </tr>
+            <tr>
+                <th scope="row">19h-22h</th>
+                <td>{% if matrice.4.0 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.4.1 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.4.2 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.4.3 == 1 %} oui {% endif %}</td>
+                <td>{% if matrice.4.4 == 1 %} oui {% endif %}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        
+    </div>
+</main>
+{% endblock %}

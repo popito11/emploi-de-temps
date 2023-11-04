@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>nom_matiere</th>
+            <th>Code</th>
+            <th>Niveau</th>
+            <th>Nombre_seance</th>
+            <th>Nombre_matiere</th>
+            
+        </tr>
+        {% for mat in matieres %}
+            <tr>
+                <th>{{mat.id}}</th>
+                <th>{{mat.nom_matiere}}</th>
+                <th>{{mat.code}}</th>
+                <th>{{mat.niveau}}</th>
+                <th>{{mat.nb_seance}}</th>
+                <th>{{mat.nb_eleve}}</th>
+
+            </tr>
+            
+        {% endfor %}
+        
+    </table>
+</body>
+</html>

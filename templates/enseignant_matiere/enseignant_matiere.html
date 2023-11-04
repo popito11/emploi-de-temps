@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>nom_professeur</th>
+            <th>nom_matiere</th>
+            
+        </tr>
+        {% for i in matiere_prof %}
+            <tr>
+                <th>{{i.id}}</th>
+                <th>{{i.Professeur.nom_prof}}</th>
+                <th>{{i.Matiere.nom_matiere}}</th>
+
+            </tr>
+            
+        {% endfor %}
+        
+    </table>
+</body>
+</html>
