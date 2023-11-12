@@ -1,0 +1,215 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4 text-center "> emploi de temps definit par niveau</h1>
+        {% if iter > 74 %}
+            <h5 class="text-danger">emploi de temps généré avec manque de ressource</h5>
+        {% endif %}
+        
+        {% for niveau in emploi_temps %}
+        
+        <div class="card mb-4 my-2">
+            <div class="card-header d-flex justify-content-between">
+              <div>
+                <i class="fas fa-table me-1"></i>
+                Niveau {{niveau.0.0.1.niveau}}
+              </div>
+              
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Lundi</th>
+                        <th>Mardi</th>
+                        <th>Mercredi</th>
+                        <th>Jeudi</th>
+                        <th>Vendredi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>7h - 10h</th>
+                        {% if niveau.0.0 != 0 %}
+                            <td>{{ niveau.0.0.1.code }} : {{ niveau.0.0.1 }} <br> {{ niveau.0.0.0 }} <br> {{ niveau.0.0.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.0.1 != 0 %}
+                            <td>{{ niveau.0.1.1.code }} : {{ niveau.0.1.1 }} <br> {{ niveau.0.1.0 }} <br> {{ niveau.0.1.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.0.2 != 0 %}
+                            <td>{{ niveau.0.2.1.code }} : {{ niveau.0.2.1 }} <br> {{ niveau.0.2.0 }} <br> {{ niveau.0.2.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.0.3 != 0 %}
+                            <td>{{ niveau.0.3.1.code }} : {{ niveau.0.3.1 }} <br> {{ niveau.0.3.0 }} <br> {{ niveau.0.3.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.0.4 != 0 %}
+                            <td>{{ niveau.0.4.1.code }} : {{ niveau.0.4.1 }} <br> {{ niveau.0.4.0 }} <br> {{ niveau.0.4.2 }}</td>   
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                      </tr>
+
+
+                      <tr>
+                        <th>10h - 13h</th>
+                        {% if niveau.1.0 != 0 %}
+                            <td>{{ niveau.1.0.1.code }} : {{ niveau.1.0.1 }} <br> {{ niveau.1.0.0 }} <br> {{ niveau.1.0.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.1.1 != 0 %}
+                            <td>{{ niveau.1.1.1.code }} : {{ niveau.1.1.1 }} <br> {{ niveau.1.1.0 }} <br> {{ niveau.1.1.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.1.2 != 0 %}
+                            <td>{{ niveau.1.2.1.code }} : {{ niveau.1.2.1 }} <br> {{ niveau.1.2.0 }} <br> {{ niveau.1.2.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.1.3 != 0 %}
+                            <td>{{ niveau.1.3.1.code }} : {{ niveau.1.3.1 }} <br> {{ niveau.1.3.0 }} <br> {{ niveau.1.3.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.1.4 != 0 %}
+                            <td>{{ niveau.1.4.1.code }} : {{ niveau.1.4.1 }} <br> {{ niveau.1.4.0 }} <br> {{ niveau.1.4.2 }}</td>   
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                      </tr>
+
+
+                      <tr>
+                        <th>13h - 16h</th>
+                        {% if niveau.2.0 != 0 %}
+                            <td>{{ niveau.2.0.1.code }} : {{ niveau.2.0.1 }} <br> {{ niveau.2.0.0 }} <br> {{ niveau.2.0.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.2.1 != 0 %}
+                            <td>{{ niveau.2.1.1.code }} : {{ niveau.2.1.1 }} <br> {{ niveau.2.1.0 }} <br> {{ niveau.2.1.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.2.2 != 0 %}
+                            <td>{{ niveau.2.2.1.code }} : {{ niveau.2.2.1 }} <br> {{ niveau.2.2.0 }} <br> {{ niveau.2.2.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.2.3 != 0 %}
+                            <td>{{ niveau.2.3.1.code }} : {{ niveau.2.3.1 }} <br> {{ niveau.2.3.0 }} <br> {{ niveau.2.3.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.2.4 != 0 %}
+                            <td>{{ niveau.2.4.1.code }} : {{ niveau.2.4.1 }} <br> {{ niveau.2.4.0 }} <br> {{ niveau.2.4.2 }}</td>   
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                      </tr>
+
+
+                      <tr>
+                        <th>16h - 20h</th>
+                        {% if niveau.3.0 != 0 %}
+                            <td>{{ niveau.3.0.1.code }} : {{ niveau.3.0.1 }} <br> {{ niveau.3.0.0 }} <br> {{ niveau.3.0.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.3.1 != 0 %}
+                            <td>{{ niveau.3.1.1.code }} : {{ niveau.3.1.1 }} <br> {{ niveau.3.1.0 }} <br> {{ niveau.3.1.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.3.2 != 0 %}
+                            <td>{{ niveau.3.2.1.code }} : {{ niveau.3.2.1 }} <br> {{ niveau.3.2.0 }} <br> {{ niveau.3.2.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.3.3 != 0 %}
+                            <td>{{ niveau.3.3.1.code }} : {{ niveau.3.3.1 }} <br> {{ niveau.3.3.0 }} <br> {{ niveau.3.3.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.3.4 != 0 %}
+                            <td>{{ niveau.3.4.1.code }} : {{ niveau.3.4.1 }} <br> {{ niveau.3.4.0 }} <br> {{ niveau.3.4.2 }}</td>   
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                      </tr>
+
+
+                      <tr>
+                        <th>20h - 23h</th>
+                        {% if niveau.4.0 != 0 %}
+                            <td>{{ niveau.4.0.1.code }} : {{ niveau.4.0.1 }} <br> {{ niveau.4.0.0 }} <br> {{ niveau.4.0.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.4.1 != 0 %}
+                            <td>{{ niveau.4.1.1.code }} : {{ niveau.4.1.1 }} <br> {{ niveau.4.1.0 }} <br> {{ niveau.4.1.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.4.2 != 0 %}
+                            <td>{{ niveau.4.2.1.code }} : {{ niveau.4.2.1 }} <br> {{ niveau.4.2.0 }} <br> {{ niveau.4.2.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.4.3 != 0 %}
+                            <td>{{ niveau.4.3.1.code }} : {{ niveau.4.3.1 }} <br> {{ niveau.4.3.0 }} <br> {{ niveau.4.3.2 }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if niveau.4.4 != 0 %}
+                            <td>{{ niveau.4.4.1.code }} : {{ niveau.4.4.1 }} <br> {{ niveau.4.4.0 }} <br> {{ niveau.4.4.2 }}</td>   
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+        
+        <br>
+        {% endfor %}
+
+
+    </div>
+</main>
+
+{% endblock %}
