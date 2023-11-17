@@ -26,7 +26,8 @@ def ajouter_professeur(request):
         nom_prof = request.POST.get("nom")
         telephone = request.POST.get("telephone")
         email = request.POST.get("email")
-        professeur = Professeur(nom_prof=nom_prof, email=email, telephone=telephone)
+        nombre_seance=request.POST.get("nb_seance")
+        professeur = Professeur(nom_prof=nom_prof, email=email, telephone=telephone, nombre_seance=nombre_seance)
         professeur.save()
 
         liste=request.POST.getlist("nomf")
@@ -125,7 +126,9 @@ def update_professeur(request, professeur_id):
         name = request.POST.get("nom")
         telephone = request.POST.get("telephone")
         email = request.POST.get("email")
+        nombre_seance=request.POST.get("nb_seance")
         
+        professeurs.nombre_seance=nombre_seance
         professeurs.nom_prof = name
         professeurs.telephone = telephone
         professeurs.email = email

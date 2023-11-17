@@ -14,11 +14,15 @@
         </div>
         <div class="mb-3">
             <label for="telephone" class="form-label">Téléphone :</label>
-            <input type="tel" class="form-control" id="telephone" placeholder="enter telephone" name="telephone" value="{{professeur.telephone}}" required>
+            <input type="number" class="form-control" id="telephone" placeholder="enter telephone" name="telephone" value="{{professeur.telephone}}" required>
         </div>
         <div class="mb-3">
             <label for="adresse" class="form-label">Adresse :</label>
-            <input type="text" class="form-control" id="adresse" placeholder="enter email" name="email" value="{{professeur.email}}" required>
+            <input type="email" class="form-control" id="adresse" placeholder="enter email" name="email" value="{{professeur.email}}" required>
+        </div>
+        <div class="mb-3">
+            <label for="nb_seance" class="form-label">nombre de seance maximum par semaine :</label>
+            <input type="number" class="form-control" id="nb_seance" placeholder="enter max nombre seance" name="nb_seance" value="{{professeur.nombre_seance}}" required>
         </div>
         <br>
         <h3>cocher les cases</h3>

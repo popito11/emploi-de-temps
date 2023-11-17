@@ -8,6 +8,7 @@ class Professeur(models.Model):
     nom_prof=models.CharField( max_length=50)
     email=models.EmailField(null=True,max_length=50)
     telephone=models.IntegerField(null=True)
+    nombre_seance=models.IntegerField(null=True)
     def __str__(self):
         return self.nom_prof
 

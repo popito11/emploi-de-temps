@@ -8,6 +8,7 @@ class Matiere(models.Model):
     niveau=models.IntegerField()
     nb_eleve=models.IntegerField()
     nb_seance=models.IntegerField()
+    optionnel = models.BooleanField(default=False)
     
     def __str__(self):
         return self.nom_matiere

@@ -5,11 +5,7 @@ from enseignant.models import Professeur,Horaireprof,Horaire
 from matiere.models import Matiere
 from salle.models import salle 
 
-
-def emploi_de_temps(request):
-    
-    return render(request,'emploi_temps.html')
-
+import random
 
 
 def tri_fusion_salles(tab):
@@ -47,6 +43,10 @@ def fusion_salles(gauche, droite):
 
     return resultat
 
+
+def get_permutation(tab):
+    random.shuffle(tab)
+    return tab
            
 def generer_emploi(request):
 
@@ -81,7 +81,23 @@ def generer_emploi(request):
                           [[], [], [], [], []]]
     
     nbseance_prof_emploi=[]
+    matieres_ops=[]
+    matiere_ob=[]
+    
+    for matiere in Matieres:
+        if matiere.optionnel==True:
+            matieres_ops.append(matiere)
+        else:
+            matiere_ob.append(matiere)
+    
+    Matieres=[]
 
+    for matiere in matieres_ops:
+        Matieres.append(matiere)
+    for matiere in matiere_ob:
+        Matieres.append(matiere)
+
+    #print(Matieres)
     #parcour des matiere afin d'extraire les niveaux pour les mettre dans un tableau niveaux 
     niveaux=[0]
     for matiere in Matieres:
@@ -99,7 +115,7 @@ def generer_emploi(request):
     niveau=[]
              
     for niv in niveaux:
-        niveau.append([niv,[[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]])
+        niveau.append([niv,[[[],[],[],[],[]],[[],[],[],[],[]],[[],[],[],[],[]],[[],[],[],[],[]],[[],[],[],[],[]]]])
     
     #print(niveau[2][1])
 
@@ -127,7 +143,14 @@ def generer_emploi(request):
     for plage in range(5):
         for jour in range(5):
             for nb in range(len(niveaux)):
-                emploi_temps_niveau[plage][jour].append([niveaux[nb],0])
+                emploi_temps_niveau[plage][jour].append([niveaux[nb],0]) 
+                """le 1er 0 me permet de savoir si une il y'a une matiere d'un niveau donnee dans une plage horaire
+                le 2eme 0 me permet de savoir si parmi les matieres presentes il y'a une qui est obligatoire 
+                si c'est le cas (emploi_temps_niveau[plage][jour][1]==2) alors on n'y ajoute plus de matiere du 
+                meme niveau dans cette plage , si ce n'est pas le cas (ie il n'ya que des matiere optionnelle ,
+                emploi_temps_niveau[plage][jour][1]==1) alors on peut ajouter des matiere optionnelle suplementaire 
+                du meme niveau . emploi_temps_niveau[plage][jour][1]==0 : il n'y a pas de matiere de ce niveau dans 
+                la plage horaire"""
     
     
     #ici on cherche a modifie l'etat d'un prof sur l'emploi de temps en fonction de ses plage horaire occupé
@@ -145,10 +168,10 @@ def generer_emploi(request):
     #print(emploi_temps_prof)               
     
     compteur=0 # variable qui permet de propagé les breaks une fois une matiere mis dans l'emploi de temps
-
+    
     #cette boucle for principale est celle utilisé pour mettre les matiere avec les salle correspondant dans l'emploi de temps
     for matiere in Matieres :
-        compteur=0
+        compteur=0        
         for i in range(matiere.nb_seance):
             compteur=0
             for mat_prof in MatiereProfesseurs:
@@ -184,33 +207,58 @@ def generer_emploi(request):
                             if compteur==1:
                                 break
                             for nb in range(nb_prof):
-                                #on verifie si le professeur correspond bien au professeur de la plage ; si ce professeur est libre a cette plage ; 
-                                #si a une meme plage horaire on ne fait pas cour dans la meme salle ; si a une meme plage horaire on ne fait pas deux matiere du meme niveau
-                                # a noter la verification pour la salle et pour le niveau ont etes implementé de la meme facon               
-                                if mat_prof.Professeur==emploi_temps_prof[plage][jour][nb][0] and emploi_temps_prof[plage][jour][nb][1]==0  and emploi_temps_salle[plage][jour][comps-1][1]==0 and emploi_temps_niveau[plage][jour][compn-1][1]==0:
+                                # on verifie si le professeur correspond bien au professeur de la plage ; si ce professeur est libre a cette plage ; 
+                                # si a une meme plage horaire on ne fait pas cour dans la meme salle ; si a une meme plage horaire on ne fait pas deux matieres obligatoires du meme niveau
+                                # a noter la verification pour la salle et pour le niveau ont etes implementé de la meme facon 
+                                   
+                                if mat_prof.Professeur==emploi_temps_prof[plage][jour][nb][0] and emploi_temps_prof[plage][jour][nb][1]==0  and (emploi_temps_niveau[plage][jour][compn-1][1]==0 or (emploi_temps_niveau[plage][jour][compn-1][1]==1 and matiere.optionnel==True)):
                                     
                                     emploi_temps_prof[plage][jour][nb][1]=matiere
                                     emploi_temps_prof[plage][jour][nb][2]=salle_courant
                                     compteur=1
                                     
+                                    #print (matiere.code)  
                                     #mise a jour du nombre de seance que le prof fait par semaine
                                     nbseance_prof_emploi[nb][1] +=1
 
                                     #modification d'etat d'une salle et d'un niveau
                                     emploi_temps_salle[plage][jour][comps-1][1]=1
-                                    emploi_temps_niveau[plage][jour][compn-1][1]=1
+                                    if  matiere.optionnel==False:
+                                        emploi_temps_niveau[plage][jour][compn-1][1]=2
+                                    else:
+                                        emploi_temps_niveau[plage][jour][compn-1][1]=1
 
                                     break
-                    break
+                    
     
 
     
-    #print(nbseance_prof_emploi)
+    
     nb_iter=0
     compteur1=0
+    #print(nbseance_prof_emploi)
+    matiere_emploi_prof_courant=[]
     for nbseance_prof in nbseance_prof_emploi:
         nb_iter=0
-        while nbseance_prof[1]>5:
+        while nbseance_prof[1]>nbseance_prof[0].nombre_seance:
+            print("***********************************************************************************")
+            print("courant : ", matiere_emploi_prof_courant)
+            matiere_emploi_prof_courants=get_permutation(matiere_emploi_prof_courant)
+            print("permuter",matiere_emploi_prof_courants)
+            plage_seance=0
+            for plage in range(5):
+                for jour in range(5):
+                    for nb in range(nb_prof):
+                        if emploi_temps_prof[plage][jour][nb][0]== nbseance_prof[0] and emploi_temps_prof[plage][jour][nb][1]!=1 and emploi_temps_prof[plage][jour][nb][1]!=0:
+                            if nb_iter !=0:
+                                print("-------------------------------------------------------------------------")
+                                emploi_temps_prof[plage][jour][nb][1]=matiere_emploi_prof_courants[plage_seance][0]
+                                print(matiere_emploi_prof_courants[plage_seance][0])
+                                emploi_temps_prof[plage][jour][nb][2]=matiere_emploi_prof_courants[plage_seance][1]
+                                print(matiere_emploi_prof_courants[plage_seance][1])
+                                print("-------------------------------------------------------------------------")
+                                plage_seance+=1
+
             nb_iter+=1
             if nb_iter>75:
                 break
@@ -224,13 +272,40 @@ def generer_emploi(request):
                     for nb in range(nb_prof):
                         if compteur1==1:
                             break
-                        if emploi_temps_prof[plage][jour][nb][0]== nbseance_prof[0] and emploi_temps_prof[plage][jour][nb][1]!=0 and emploi_temps_prof[plage][jour][nb][1]!=1 :
+                        if emploi_temps_prof[plage][jour][nb][0]== nbseance_prof[0]  and emploi_temps_prof[plage][jour][nb][1]!=1 and emploi_temps_prof[plage][jour][nb][1]!=0:
+                            
+                            #print("plage : ",plage,"jour : ",jour)
+
+                            if [emploi_temps_prof[plage][jour][nb][1],emploi_temps_prof[plage][jour][nb][2]] in matiere_emploi_prof_courant:
+                                ignorer=1
+                            else :
+                                matiere_emploi_prof_courant.append([emploi_temps_prof[plage][jour][nb][1],emploi_temps_prof[plage][jour][nb][2]])
+                                
+
                             for mat_prof in MatiereProfesseurs:
                                 if compteur1==1:
                                     break
-                                if mat_prof.Professeur!=nbseance_prof[0] and mat_prof.Matiere==emploi_temps_prof[plage][jour][nb][1] :
+                                
+                                if mat_prof.Professeur!=nbseance_prof[0] and mat_prof.Matiere==emploi_temps_prof[plage][jour][nb][1]  :
+                                    
+
                                     for nb1 in range(nb_prof):
-                                        if emploi_temps_prof[plage][jour][nb1][0]==mat_prof.Professeur and emploi_temps_prof[plage][jour][nb1][1]==0 and nbseance_prof_emploi[nb1][1]<6:
+                                        """
+                                        print("--------------------------------------")
+                                        print(emploi_temps_prof[plage][jour][nb1][0])
+                                        print(mat_prof.Professeur)
+                                        print("******************************************************")
+                                        print(emploi_temps_prof[plage][jour][nb1][1])
+                                        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+                                        print(nbseance_prof_emploi[nb1][1])
+                                        """
+                                        if emploi_temps_prof[plage][jour][nb1][0]==mat_prof.Professeur:
+                                            #print("",nbseance_prof[0] ,"---", emploi_temps_prof[plage][jour][nb1][0],"---mat--- ",mat_prof.Professeur,"---matiere---", emploi_temps_prof[plage][jour][nb1][1]," plage ",plage," jour ",jour)
+                                            print("")
+                                        if emploi_temps_prof[plage][jour][nb1][0]==mat_prof.Professeur and emploi_temps_prof[plage][jour][nb1][1]==0 :
+                                            
+                                            print(nbseance_prof[0] ,"---", emploi_temps_prof[plage][jour][nb1][0])
+
                                             emploi_temps_prof[plage][jour][nb1][1]=mat_prof.Matiere
                                             emploi_temps_prof[plage][jour][nb1][2]=emploi_temps_prof[plage][jour][nb][2]
 
@@ -239,13 +314,13 @@ def generer_emploi(request):
 
                                             nbseance_prof_emploi[nb][1]-=1
                                             nbseance_prof_emploi[nb1][1]+=1
-
+                                            
                                             compteur1=1
                                             break
 
 
-    print(nb_iter)
-    print(nbseance_prof_emploi)
+    #print(nb_iter)
+    #print(nbseance_prof_emploi)
     #separation de l'emploi de temps en fonction de differents niveaux en mettant chaque noeud (prof;matiere;salle) dans la matrice niveau correspondant
     for nive in niveaux:
         for plage in range(5):
@@ -255,15 +330,17 @@ def generer_emploi(request):
                     if emploi_temps_prof[plage][jour][nb][1]!=0 and emploi_temps_prof[plage][jour][nb][1]!=1 and emploi_temps_prof[plage][jour][nb][1].niveau==nive: 
                         for i in range(len(niveau)) :
                             if nive == niveau[i][0]:
-                                niveau[i][1][plage][jour]=emploi_temps_prof[plage][jour][nb]
+                                niveau[i][1][plage][jour].append(emploi_temps_prof[plage][jour][nb])
+                                
                                 break
                     
     #ici on reuini les emplois de temps de chaque niveau pour les mettre dans un tableau (pour forme un cube ie dim =3) 
+    
     emploi_temps=[]
     for nive in niveau:
         emploi_temps.append(nive[1])
 
     #print(emploi_temps)
-
+    print("nb_iter :", nb_iter)
     context={'emploi_temps':emploi_temps,'iter':nb_iter}
     return render(request,'emploi_temps.html',context)
