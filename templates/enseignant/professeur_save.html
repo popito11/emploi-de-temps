@@ -38,56 +38,64 @@
         <br>
         <table class="table">
             <thead>
-            <tr>
+              <div class="form-group">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="checkAll">
+                  <label class="form-check-label" for="checkAll">
+                    Tout cocher
+                  </label>
+                </div>
+              </div>
+              <tr>
                 <th scope="col"></th>
                 <th scope="col">Lundi</th>
                 <th scope="col">Mardi</th>
                 <th scope="col">Mercredi</th>
                 <th scope="col">Jeudi</th>
                 <th scope="col">Vendredi</th>
-            </tr>
+              </tr>
             </thead>
             <tbody>
-            <tr>
+              <tr>
                 <th scope="row">Plage horaire 1</th>
                 <td><input type="checkbox" class="form-check-input" name="case-1-1" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-1-2" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-1-3" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-1-4" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-1-5" value="true"></td>
-            </tr>
-            <tr>
+              </tr>
+              <tr>
                 <th scope="row">Plage horaire 2</th>
                 <td><input type="checkbox" class="form-check-input" name="case-2-1" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-2-2" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-2-3" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-2-4" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-2-5" value="true"></td>
-            </tr>
-            <tr>
+              </tr>
+              <tr>
                 <th scope="row">Plage horaire 3</th>
                 <td><input type="checkbox" class="form-check-input" name="case-3-1" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-3-2" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-3-3" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-3-4" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-3-5" value="true"></td>
-            </tr>
-            <tr>
+              </tr>
+              <tr>
                 <th scope="row">Plage horaire 4</th>
                 <td><input type="checkbox" class="form-check-input" name="case-4-1" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-4-2" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-4-3" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-4-4" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-4-5" value="true"></td>
-            </tr>
-            <tr>
+              </tr>
+              <tr>
                 <th scope="row">Plage horaire 5</th>
                 <td><input type="checkbox" class="form-check-input" name="case-5-1" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-5-2" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-5-3" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-5-4" value="true"></td>
                 <td><input type="checkbox" class="form-check-input" name="case-5-5" value="true"></td>
-            </tr>
+              </tr>
             </tbody>
         </table>
 
@@ -95,4 +103,22 @@
         </form>
     </div>
 </main>
+<!-- Inclure jQuery et le fichier JavaScript de Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<script>
+    // Fonction pour cocher ou décocher les cases du tableau
+    function toggleCheckAll() {
+      const checkAll = document.getElementById('checkAll');
+      const checkboxes = document.querySelectorAll('tbody input[type="checkbox"]');
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = checkAll.checked;
+      });
+    }
+
+    // Ajouter un écouteur d'événement au clic sur la case à cocher "Tout cocher"
+    document.getElementById('checkAll').addEventListener('click', toggleCheckAll);
+</script>
 {% endblock %}

@@ -5,7 +5,7 @@
 <main>
     <div class="container-fluid px-4">
         <h1 class="mt-4 text-center "> emploi de temps definit par niveau</h1>
-        {% if iter > 74 %}
+        {% if iter > 74 or max_iter > 9999 %}
             <h5 class="text-danger">emploi de temps généré avec manque de ressource</h5>
         {% endif %}
         
@@ -15,7 +15,7 @@
             <div class="card-header d-flex justify-content-between">
               <div>
                 <i class="fas fa-table me-1"></i>
-                Niveau {{niveau.0.0.1.niveau}}
+                Niveau : {{ niveau.0.0.1.niveau }}
               </div>
               
             </div>
@@ -35,7 +35,7 @@
                       <tr>
                         <th>7h - 10h</th>
                         {% if niveau.0.0 != 0 %}
-                            <td>{{ niveau.0.0.1.code }} : {{ niveau.0.0.1 }} <br> {{ niveau.0.0.0 }} <br> {{ niveau.0.0.2 }}</td>
+                            <td>{{ niveau.0.0.1.getattribute.code }} : {{ niveau.0.0.1 }} <br> {{ niveau.0.0.0 }} <br> {{ niveau.0.0.2 }}</td>
                         {% else %}
                             <td></td>
                         {% endif %}
